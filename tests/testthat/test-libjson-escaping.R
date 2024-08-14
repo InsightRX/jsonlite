@@ -22,9 +22,9 @@ test_that("escaping and parsing of special characters", {
 
 test_that("escape solidus", {
   expect_equal(toJSON("foo/bar/baz"), '["foo/bar/baz"]')
-  expect_equal(toJSON('<script>evil()</script>'), '["<script>evil()<\\/script>"]')
+  expect_equal(toJSON('<script>evil()</script>'), '["<script>evil()</script>"]')
   expect_equal(toJSON('/', auto_unbox = TRUE), '"/"')
-  expect_equal(toJSON('</', auto_unbox = TRUE), '"<\\/"')
+  expect_equal(toJSON('</', auto_unbox = TRUE), '"</"')
 
   # Mixed encoding
   x <- c('\xFD\xDD\xD6\xF0\n', '\u1F602\n')
@@ -33,7 +33,7 @@ test_that("escape solidus", {
 
   # Escape solidus by minify
   expect_equal(unclass(minify('["/"]')), '["/"]')
-  expect_equal(unclass(minify('["</"]')), '["<\\/"]')
+  expect_equal(unclass(minify('["</"]')), '["</"]')
 })
 
 test_that("BOM is being ignored", {
