@@ -27,9 +27,6 @@ SEXP C_escape_chars_one(SEXP x) {
         matches++;
         break;
       case '/':
-        if(cur > CHAR(x) && cur[-1] == '<')
-          matches++;
-        break;
       default:
         if (*cur >= 0x00 && *cur <= 0x1f)
           matches += 5; //needs explicit \u00xx escaping
@@ -80,7 +77,7 @@ SEXP C_escape_chars_one(SEXP x) {
         break;
       case '/':
         if(cur > CHAR(x) && cur[-1] == '<'){
-          *outcur++ = '\\';
+          *outcur = '/';
           *outcur = '/';
           break;
         } //FALL THROUGH!
